@@ -13,7 +13,7 @@ import UserProfile from "./components/user/UserProfile";
 import AdminAuth from "./auth/AdminAuth";
 import UserAuth from "./auth/UserAuth";
 import { useState } from "react";
-import {Toaster} from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 import ExtCreator from "./components/user/ExtCreator";
 import MyExtensions from "./components/user/MyExtensions";
 import Preview from "./components/user/Preview";
@@ -23,22 +23,39 @@ import BrowseItem from "./plugins/store/BrowseItem";
 import ManageItem from "./plugins/store/ManageItem";
 
 function App() {
-
-  const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('user')));
-  const [currentAdmin, setCurrentAdmin] = useState(JSON.parse(sessionStorage.getItem('admin')));
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("user"))
+  );
+  const [currentAdmin, setCurrentAdmin] = useState(
+    JSON.parse(sessionStorage.getItem("admin"))
+  );
 
   return (
     <div>
       <BrowserRouter>
-      <Toaster position="top-center" />
+        <Toaster position="top-center" />
         <AdminProvider currentAdmin={currentAdmin}>
           <UserProvider currentUser={currentUser}>
             <Routes>
               <Route path="/" element={<Navigate to="/main/home" />} />
-              <Route path="admin" element={<AdminAuth><Admin /></AdminAuth>}>
+              <Route
+                path="admin"
+                element={
+                  <AdminAuth>
+                    <Admin />
+                  </AdminAuth>
+                }
+              >
                 {/* <Route path='managegames' element={<ManageGames />}  /> */}
               </Route>
-              <Route path="user" element={<UserAuth><User /></UserAuth>}>
+              <Route
+                path="user"
+                element={
+                  <UserAuth>
+                    <User />
+                  </UserAuth>
+                }
+              >
                 <Route path="profile" element={<UserProfile />} />
                 <Route path="myextensions" element={<MyExtensions />} />
                 <Route path="createextension" element={<ExtCreator />} />
@@ -53,7 +70,7 @@ function App() {
                 <Route path="browse" element={<BrowseItem />} />
                 <Route path="manageitem" element={<ManageItem />} />
               </Route>
-                <Route path="preview" element={<Preview />} />
+              <Route path="preview" element={<Preview />} />
             </Routes>
           </UserProvider>
         </AdminProvider>
